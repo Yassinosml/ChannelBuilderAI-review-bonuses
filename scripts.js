@@ -156,3 +156,49 @@ Version: 1.0.0
 Last Updated: 2025-05-17 20:33:47
 Created by: Yassinosml
 `);
+// Add this to your scripts.js
+function handleBonusImages() {
+    const bonusImages = document.querySelectorAll('.bonus-image img');
+    
+    bonusImages.forEach(img => {
+        // Store original src
+        const originalSrc = img.src;
+        
+        // Set loading state
+        img.parentElement.classList.remove('loaded');
+        
+        // Handle successful load
+        img.addEventListener('load', function() {
+            this.parentElement.classList.add('loaded');
+            this.style.opacity = '1';
+        });
+        
+        // Handle errors with retry
+        img.addEventListener('error', function() {
+            // Try without 's' in URL if present
+            if (originalSrc.includes('ibb.co/')) {
+                const newSrc = originalSrc.replace('/s/', '/');
+                if (this.src !== newSrc) {
+                    this.src = newSrc;
+                    return;
+                }
+            }
+            
+            // If still fails, use fallback
+            this.src = `https://placehold.co/600x400?text=${encodeURIComponent(this.alt)}`;
+            this.classList.add('error');
+            this.parentElement.classList.add('loaded');
+        });
+        
+        // Force reload if already failed
+        if (!img.complete || img.naturalHeight === 0) {
+            img.src = originalSrc;
+        }
+    });
+}
+
+// Update your DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', () => {
+    // ... other initializations ...
+    handleBonusImages();
+});
