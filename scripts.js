@@ -96,36 +96,20 @@ function initializeSmoothScroll() {
     });
 }
 
-// Image Loading Handler
-function handleImages() {
-    const images = document.getElementsByTagName('img');
+function handleBonusImages() {
+    const bonusImages = document.querySelectorAll('.bonus-image img');
     
-    function loadImage(img) {
-        img.style.opacity = '0';
-        
-        const loadHandler = () => {
-            img.style.opacity = '1';
-            img.removeEventListener('load', loadHandler);
+    bonusImages.forEach(img => {
+        img.onerror = function() {
+            this.src = `https://placehold.co/600x400?text=${encodeURIComponent(this.alt)}`;
         };
-        
-        const errorHandler = () => {
-            img.src = 'https://placehold.co/600x400?text=Image+Not+Found';
-            img.style.opacity = '1';
-            img.removeEventListener('error', errorHandler);
-        };
-        
-        img.addEventListener('load', loadHandler);
-        img.addEventListener('error', errorHandler);
-    }
-    
-    Array.from(images).forEach(img => {
-        if (img.complete) {
-            img.style.opacity = '1';
-        } else {
-            loadImage(img);
-        }
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    handleBonusImages();
+    // ... other initializations
+});
 
 // Replace the current lazyLoadImages call in your DOMContentLoaded event with:
 document.addEventListener('DOMContentLoaded', () => {
