@@ -11,7 +11,36 @@
     --gradient-1: linear-gradient(135deg, var(--primary), var(--secondary));
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+/* Image Loading Styles */
+img {
+    max-width: 100%;
+    height: auto;
+    transition: opacity 0.3s ease;
+}
 
+.image-loading {
+    opacity: 0.5;
+    background: #f0f0f0;
+    min-height: 200px;
+}
+
+.mockup-image,
+.feature-image,
+.bonus-image img,
+.app-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    background: #f8fafc;
+    min-height: 200px;
+}
+
+.bonus-image {
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 * {
     margin: 0;
     padding: 0;
