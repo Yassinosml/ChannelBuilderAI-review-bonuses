@@ -6,119 +6,78 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize FAQ accordions
     initializeFAQs();
     
-    // Track performance
-    trackPerformance();
+    // Initialize smooth scroll
+    initializeSmoothScroll();
+    
+    // Initialize lazy loading
+    lazyLoadImages();
+    
+    // Update dynamic content
+    updateDynamicContent();
 });
 
 // Countdown Timer Implementation
 function initializeCountdowns() {
-    // Set expiration date (3 days from now)
-    const expirationDate = new Date('2025-05-20T19:47:46Z');
+    const expirationDate = new Date('2025-05-20T20:33:47Z');
     
-    // Update all countdowns every second
     function updateCountdowns() {
         const now = new Date();
         const timeLeft = expirationDate - now;
         
         if (timeLeft <= 0) {
-            // If expired, update all countdown displays
-            document.querySelectorAll('.main-countdown, .bonus-countdown').forEach(countdown => {
+            document.querySelectorAll('.main-countdown, .bonus-countdown, .countdown').forEach(countdown => {
                 countdown.innerHTML = '<div class="time-block"><span class="number">EXPIRED</span></div>';
             });
             return;
         }
         
-        // Calculate time units
         const hours = Math.floor(timeLeft / (1000 * 60 * 60));
         const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
         
-        // Update main countdown
+        // Update all countdown elements
         if (document.getElementById('hours')) {
             document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
             document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
             document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
         }
         
-        // Update bonus countdown
         if (document.getElementById('bonus-hours')) {
             document.getElementById('bonus-hours').textContent = hours.toString().padStart(2, '0');
             document.getElementById('bonus-minutes').textContent = minutes.toString().padStart(2, '0');
             document.getElementById('bonus-seconds').textContent = seconds.toString().padStart(2, '0');
         }
+        
+        // Update standalone countdown
+        const countdownEl = document.querySelector('.countdown');
+        if (countdownEl) {
+            countdownEl.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
     }
     
-    // Initial update
     updateCountdowns();
-    
-    // Update every second
     setInterval(updateCountdowns, 1000);
 }
 
 // FAQ Accordion Implementation
 function initializeFAQs() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
+    document.querySelectorAll('.faq-item').forEach(item => {
         const question = item.querySelector('.faq-question');
         
         question.addEventListener('click', () => {
-            // Close other open FAQs
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                }
+            const isOpen = item.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(faqItem => {
+                faqItem.classList.remove('active');
             });
             
-            // Toggle current FAQ
-            item.classList.toggle('active');
-        });
-    });
-}
-
-// Performance Tracking
-function trackPerformance() {
-    // Track page load performance
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            const timing = window.performance.timing;
-            const pageLoadTime = timing.loadEventEnd - timing.navigationStart;
-            console.log(`Page Load Time: ${pageLoadTime}ms`);
-        }, 0);
-    });
-    
-    // Track user interactions
-    document.addEventListener('click', e => {
-        const target = e.target;
-        
-        // Track CTA button clicks
-        if (target.classList.contains('cta-button')) {
-            console.log('CTA Button Clicked:', target.href);
-        }
-        
-        // Track bonus card interactions
-        if (target.closest('.bonus-card')) {
-            console.log('Bonus Card Interaction:', target.closest('.bonus-card').querySelector('h3').textContent);
-        }
-    });
-}
-
-// Lazy Loading Implementation
-function lazyLoadImages() {
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
+            // Toggle current item
+            if (!isOpen) {
+                item.classList.add('active');
             }
         });
     });
-    
-    images.forEach(img => imageObserver.observe(img));
 }
 
 // Smooth Scroll Implementation
@@ -137,62 +96,46 @@ function initializeSmoothScroll() {
     });
 }
 
+// Lazy Loading Implementation
+function lazyLoadImages() {
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+}
+
 // Update Dynamic Content
 function updateDynamicContent() {
-    const lastUpdated = new Date('2025-05-17T19:47:46Z');
+    const lastUpdated = new Date('2025-05-17T20:33:47Z');
+    const username = 'Yassinosml';
     
-    // Update all date references
+    // Update dates
     document.querySelectorAll('.current-date').forEach(el => {
         el.textContent = lastUpdated.toLocaleDateString();
     });
     
     // Update username references
     document.querySelectorAll('.user-login').forEach(el => {
-        el.textContent = 'Yassinosml';
-    });
-    
-    // Calculate and update total bonus value
-    const totalBonusValue = 645; // Fixed value from your content
-    document.querySelectorAll('.total-amount').forEach(el => {
-        el.textContent = `$${totalBonusValue}`;
+        el.textContent = username;
     });
 }
-
-// Initialize everything
-window.addEventListener('load', () => {
-    initializeSmoothScroll();
-    lazyLoadImages();
-    updateDynamicContent();
-});
 
 // Console welcome message
 console.log(`
 ChannelBuilder AI Landing Page
 Version: 1.0.0
-Last Updated: 2025-05-17 19:47:46
+Last Updated: 2025-05-17 20:33:47
 Created by: Yassinosml
 `);
-// Countdown Timer
-document.addEventListener('DOMContentLoaded', () => {
-    const countdownEl = document.querySelector('.countdown');
-    const expireDate = new Date(countdownEl.dataset.expire);
-    
-    function updateCountdown() {
-        const now = new Date();
-        const diff = expireDate - now;
-        
-        if (diff <= 0) {
-            countdownEl.textContent = 'EXPIRED';
-            return;
-        }
-        
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        
-        countdownEl.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
-    
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-});
