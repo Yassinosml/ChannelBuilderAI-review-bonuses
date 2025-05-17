@@ -1,3 +1,17 @@
+:root {
+    --primary: #4A90E2;
+    --dark: #333333;
+    --text: #666666;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Then all the other CSS follows... */
+.special-bonuses {
+    padding: 5rem 0;
+    background: #f8fafc;
+    /* etc... */
+}
+
 /* CSS Reset & Variables */
 :root {
     --primary: #4A90E2;
@@ -771,17 +785,4 @@ body {
         text-align: center;
         padding: 1rem;
     }
-}
-:root {
-    --primary: #4A90E2;
-    --dark: #333333;
-    --text: #666666;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Then all the other CSS follows... */
-.special-bonuses {
-    padding: 5rem 0;
-    background: #f8fafc;
-    /* etc... */
 }
