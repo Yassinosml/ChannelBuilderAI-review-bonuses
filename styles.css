@@ -1,7 +1,13 @@
 :root {
     --primary: #4A90E2;
-    --dark: #333333;
+    --secondary: #FF6B6B;
+    --bg: #ffffff;
     --text: #666666;
+    --dark: #333333;
+    --light: #f5f7fa;
+    --success: #2ECC71;
+    --warning: #F1C40F;
+    --gradient-1: linear-gradient(135deg, var(--primary), var(--secondary));
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
