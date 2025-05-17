@@ -1860,6 +1860,29 @@ document.addEventListener('DOMContentLoaded', () => {
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
+<!-- Vercel Speed Insights -->
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 
+<!-- Update dynamic dates -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Update current date
+    const currentDate = new Date('2025-05-17T13:54:59Z');
+    
+    // Update all date references
+    document.querySelectorAll('.current-date').forEach(el => {
+      el.textContent = currentDate.toISOString().split('T')[0];
+    });
+
+    // Update username references
+    const username = 'Yassinosml';
+    document.querySelectorAll('.user-login').forEach(el => {
+      el.textContent = username;
+    });
+  });
+</script>
 </body>
 </html>
