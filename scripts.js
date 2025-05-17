@@ -96,25 +96,42 @@ function initializeSmoothScroll() {
     });
 }
 
-// Lazy Loading Implementation
-function lazyLoadImages() {
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                    observer.unobserve(img);
-                }
-            });
-        });
-
-        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-            imageObserver.observe(img);
-        });
+// Image Loading Handler
+function handleImages() {
+    const images = document.getElementsByTagName('img');
+    
+    function loadImage(img) {
+        img.style.opacity = '0';
+        
+        const loadHandler = () => {
+            img.style.opacity = '1';
+            img.removeEventListener('load', loadHandler);
+        };
+        
+        const errorHandler = () => {
+            img.src = 'https://placehold.co/600x400?text=Image+Not+Found';
+            img.style.opacity = '1';
+            img.removeEventListener('error', errorHandler);
+        };
+        
+        img.addEventListener('load', loadHandler);
+        img.addEventListener('error', errorHandler);
     }
+    
+    Array.from(images).forEach(img => {
+        if (img.complete) {
+            img.style.opacity = '1';
+        } else {
+            loadImage(img);
+        }
+    });
 }
+
+// Replace the current lazyLoadImages call in your DOMContentLoaded event with:
+document.addEventListener('DOMContentLoaded', () => {
+    // Other initializations...
+    handleImages();
+});
 
 // Update Dynamic Content
 function updateDynamicContent() {
