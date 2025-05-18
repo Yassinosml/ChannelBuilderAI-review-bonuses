@@ -701,3 +701,84 @@ img {
         text-align: center;
     }
 }
+/* Add these styles to your CSS file */
+
+/* Bonus Footer Styles */
+.bonus-footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.total-value {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 2rem;
+}
+
+.total-value span {
+    color: var(--primary);
+}
+
+.bonus-timer {
+    margin: 1.5rem 0;
+}
+
+.bonus-timer p {
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+.countdown {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: monospace;
+    margin: 1rem 0;
+}
+
+.bonus-cta {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.bonus-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    background: var(--secondary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .bonus-footer {
+        padding: 1.5rem;
+    }
+
+    .total-value {
+        font-size: 1.5rem;
+    }
+
+    .countdown {
+        font-size: 2rem;
+    }
+
+    .bonus-cta {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        width: 100%;
+    }
+}
