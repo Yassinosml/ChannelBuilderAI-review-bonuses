@@ -186,3 +186,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // ... other initializations ...
     handleBonusImages();
 });
+// Add to your scripts.js
+function setupConversionTracking() {
+    // Track main CTA buttons
+    document.querySelectorAll('.cta-button, .bonus-cta').forEach(button => {
+        button.addEventListener('click', function() {
+            gtag('event', 'conversion', {
+                'send_to': 'AW-17090665512/XXXXXXXXX', // Replace XXXXXXXXX with your specific conversion label
+                'value': 47.00,
+                'currency': 'USD'
+            });
+        });
+    });
+}
+
+// Add this to your DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', () => {
+    // ... your existing initializations ...
+    setupConversionTracking();
+});
