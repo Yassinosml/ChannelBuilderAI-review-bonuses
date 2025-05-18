@@ -205,3 +205,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // ... your existing initializations ...
     setupConversionTracking();
 });
+// Add to your scripts.js
+function generateOrderId() {
+    return 'ORDER-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+}
+
+function setupConversionTracking() {
+    // Track all purchase buttons
+    document.querySelectorAll('.cta-button, .bonus-cta').forEach(button => {
+        button.addEventListener('click', function(e) {
+            gtag('event', 'purchase', {
+                'send_to': 'AW-17090665512',
+                'value': 47.00,
+                'currency': 'USD',
+                'transaction_id': generateOrderId()
+            });
+        });
+    });
+}
+
+// Update your initialization
+document.addEventListener('DOMContentLoaded', () => {
+    // Update the date
+    const lastUpdated = new Date('2025-05-18T23:24:18Z');
+    const username = 'Yassinosml';
+    
+    // Your existing initializations
+    initializeCountdowns();
+    initializeFAQs();
+    initializeSmoothScroll();
+    handleBonusImages();
+    
+    // Add conversion tracking
+    setupConversionTracking();
+});
